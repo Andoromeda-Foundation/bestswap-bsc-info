@@ -167,13 +167,8 @@ function SideNav({ history }) {
                 BestSwap on BSC
               </Link>
             </HeaderText>
-            {/* <HeaderText>
-              <Link href="https://docs.bestswap.com/" target="_blank">
-                Docs
-              </Link>
-            </HeaderText> */}
             <HeaderText>
-              <Link href="https://twitter.com/bestswap " target="_blank">
+              <Link href="https://twitter.com/Bestswap_com " target="_blank">
                 Twitter
               </Link>
             </HeaderText>
