@@ -168,11 +168,20 @@ function PairPage({ pairAddress, history }) {
 
   // token data for usd
   const [ethPrice] = useEthPrice()
-  const token0USD =
+  const token0USDWithBNB =
     token0?.derivedETH && ethPrice ? formattedNum(parseFloat(token0.derivedETH) * parseFloat(ethPrice), true) : ''
 
-  const token1USD =
+  const token1USDWithBNB =
     token1?.derivedETH && ethPrice ? formattedNum(parseFloat(token1.derivedETH) * parseFloat(ethPrice), true) : ''
+
+  const token0USD = token0USDWithBNB
+  const token1USD = token1USDWithBNB
+
+  const stableCoinSymbol = [ "BUSD", "USDT", "DAI" ]
+  const isToken0StableCoin = stableCoinSymbol.indexOf(token0?.symbol) > -1
+  const isToken1StableCoin = stableCoinSymbol.indexOf(token1?.symbol) > -1
+  console.info(isToken0StableCoin, isToken1StableCoin)
+
 
   // rates
   const token0Rate = reserve0 && reserve1 ? formattedNum(reserve1 / reserve0) : '-'
@@ -290,7 +299,7 @@ function PairPage({ pairAddress, history }) {
                   <TYPE.main fontSize={'16px'} lineHeight={1} fontWeight={500} ml={'4px'}>
                     {token0 && token1
                       ? `1 ${formattedSymbol0} = ${token0Rate} ${formattedSymbol1} ${
-                          parseFloat(token0?.derivedETH) ? '(' + token0USD + ')' : ''
+                          parseFloat(token0?.derivedETH) && !isToken1StableCoin ? '(' + token0USD + ')' : ''
                         }`
                       : '-'}
                   </TYPE.main>
@@ -302,7 +311,7 @@ function PairPage({ pairAddress, history }) {
                   <TYPE.main fontSize={'16px'} lineHeight={1} fontWeight={500} ml={'4px'}>
                     {token0 && token1
                       ? `1 ${formattedSymbol1} = ${token1Rate} ${formattedSymbol0}  ${
-                          parseFloat(token1?.derivedETH) ? '(' + token1USD + ')' : ''
+                          parseFloat(token1?.derivedETH)  && !isToken0StableCoin ? '(' + token1USD + ')' : ''
                         }`
                       : '-'}
                   </TYPE.main>
